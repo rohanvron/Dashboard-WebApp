@@ -1,89 +1,92 @@
 import React from 'react';
+import { MdOutlineArrowOutward } from 'react-icons/md';
+import { faker } from '@faker-js/faker';
 
 const MemberDetailsPane = ({ member, onClose }) => {
+  const publication = {
+    title: 'AI in the User Experience: The Future of Design',
+    journal: 'Journal of Modern Design',
+    year: '2022',
+    abstract: 'AI-based breast cancer prediction models in medical machines using Python language...',
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Member Details</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-black"
+    <div className="fixed right-0 top-0 h-full w-1/2 bg-white shadow-lg overflow-y-auto">
+      <div className="flex justify-between items-center p-3">
+        <button onClick={onClose} className="text-gray-500 hover:text-red-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div className="flex items-center bg-sky-900 p-4">
+        <img
+          src={member.profilePicture}
+          alt="Profile"
+          className="w-20 h-20 rounded-full object-cover mr-4"
+        />
+        <div className='p-4'>
+          <h3 className="text-xl font-bold mb-4 text-white">{member.name}</h3>
+          <p className="text-white">
+            User ID: {member.username} | Role:<span className="ml-2">{member.role}</span>
+          </p>
+        </div>
+      </div>
+      <div>
+      <h4 className="text-lg font-bold mb-2 border p-3 bg-sky-100">Personal Information</h4>
+      <div className='px-4'>
+        <div className="border-b py-2">
+          <p className='font-semibold'>Date of Birth:
+          <span className='ml-2 font-normal'>
+            {faker.date.birthdate({ min: 1970, max: 2000, mode: 'year' }).toLocaleDateString()}
+          </span>
+          </p>
+        </div>
+        
+        <div className="border-b border-gray-200 py-2">
+          <p className='font-semibold'>Gender: 
+          <span 
+            className='ml-2 font-normal'> Male
+            </span>
+            </p>
+        </div>
+        <div className="border-b border-gray-200 py-2">
+          <p className='font-semibold'>Nationality: <span className='ml-2 font-normal'>{faker.address.country()}</span></p>
+        </div>
+        <div className="border-b border-gray-200 py-2">
+          <p className='font-semibold'>Contact No:<span className='ml-2 font-normal'> 1234567890</span></p>
+        </div>
+        <div className="border-b border-gray-200 py-2">
+          <p className='font-semibold'>Email Address: <span className='ml-2 font-normal'>{member.email}</span></p>
+        </div>
+        <div className="py-2">
+          <p className='font-semibold'>Work Email Address: <span className='ml-2 font-normal'>{member.email}</span></p>
+        </div>
+      </div>
+      </div>
+      <div className="my-4">
+        <h4 className="text-lg font-bold border p-3 bg-sky-100">Research And Publications</h4>
+        <div className="border p-4">
+          <h5 className="text-md font-semibold">{publication.title}</h5>
+          <p className='italic'>{publication.journal}, {publication.year}</p>
+          <p className='mt-2 text-sm'>{publication.abstract}</p>
+          <button className="flex items-center mt-2 text-orange-600 hover:bg-gray-200 rounded-md px-2 py-1">
+            <MdOutlineArrowOutward className="mr-1" />
+            See Publication
           </button>
         </div>
-        <div className="flex items-center mb-4">
-          <img
-            src={member.profilePicture}
-            alt="Profile"
-            className="w-20 h-20 rounded-full object-cover mr-4"
-          />
-          <div>
-            <h3 className="text-xl font-bold">{member.name}</h3>
-            <p className="text-gray-500">{member.username}</p>
-          </div>
-        </div>
-      <div className="mb-4">
-        <h4 className="text-lg font-bold mb-2">Role</h4>
-        <p>{member.role}</p>
       </div>
-      <div className="mb-4">
-        <h4 className="text-lg font-bold mb-2">Email</h4>
-        <p>{member.email}</p>
-      </div>
-      <div className="mb-4">
-        <h4 className="text-lg font-bold mb-2">Status</h4>
-        <span
-          className={`inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium ${
-            member.status === 'Active'
-              ? 'bg-green-100 text-green-800'
-              : 'bg-red-100 text-red-800'
-          }`}
-        >
-          <span
-            className={`w-2 h-2 mr-1.5 rounded-full ${
-              member.status === 'Active' ? 'bg-green-500' : 'bg-red-500'
-            }`}
-          ></span>
-          {member.status}
-        </span>
-      </div>
-      <div className="mb-4">
-        <h4 className="text-lg font-bold mb-2">Teams</h4>
-        <div className="flex flex-wrap">
-          {member.teams.map((team, index) => (
-            <span
-              key={index}
-              className={`rounded-full px-2 py-1 text-xs font-semibold mr-2 ${
-                team === 'Design'
-                  ? 'bg-blue-200 text-blue-800'
-                  : team === 'Product'
-                  ? 'bg-green-200 text-green-800'
-                  : team === 'Marketing'
-                  ? 'bg-yellow-200 text-yellow-800'
-                  : 'bg-purple-200 text-purple-800'
-              }`}
-            >
-              {team}
-            </span>
-          ))}
-        </div>
-        </div>
-    </div>
     </div>
   );
 };
