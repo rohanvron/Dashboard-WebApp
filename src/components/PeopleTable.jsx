@@ -43,7 +43,7 @@ const generateData = () => {
       .fullName()
       .replace(/(Mr|Miss|Mrs|Ms|Dr)\s*\.?\s*/, "");
     const firstName = fullName.split(" ")[0].toLowerCase();
-    const profilePicture = faker.image.avatar();
+    const profilePicture = `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 100)}.jpg`;
     return {
       id: faker.string.uuid(),
       name: fullName,
